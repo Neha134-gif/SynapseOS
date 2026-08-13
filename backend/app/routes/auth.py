@@ -1,19 +1,24 @@
-from fastapi import APIRouter, HTTPException
-from app.schemas import UserCreate
+from fastapi import APIRouter, HTTPException, Depends
+from fastapi.security import OAuth2PasswordRequestForm
+
+from app.schemas import UserCreate, UserLogin
 from app.database import SessionLocal
 from app.models.db_models import User
-from app.schemas import UserLogin
 from app.auth.jwt_handler import create_token
 from app.utils.security import hash_password, verify_password
 
+
 router = APIRouter()
+
 
 @router.post("/signup")
 def signup(user: UserCreate):
 
     db = SessionLocal()
 
-    existing_user = db.query(User).filter(User.email == user.email).first()
+    existing_user = db.query(User).filter(
+        User.email == user.email
+    ).first()
 
     if existing_user:
         raise HTTPException(
@@ -38,6 +43,8 @@ def signup(user: UserCreate):
         "username": new_user.username,
         "email": new_user.email
     }
+
+
 @router.post("/login")
 def login(user: UserLogin):
 
@@ -53,7 +60,49 @@ def login(user: UserLogin):
             detail="Invalid Email"
         )
 
-    if not verify_password(user.password, db_user.password):
+    if not verify_password(
+        user.password,
+        db_user.password
+    ):
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid Password"
+        )
+
+    token = create_token(
+        {
+            "user_id": db_user.id,
+            "email": db_user.email
+        }
+    )
+
+    return {
+        "access_token": token,
+        "token_type": "bearer"
+    }
+
+
+@router.post("/login/token")
+def login_for_swagger(
+    form_data: OAuth2PasswordRequestForm = Depends()
+):
+
+    db = SessionLocal()
+
+    db_user = db.query(User).filter(
+        User.email == form_data.username
+    ).first()
+
+    if not db_user:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid Email"
+        )
+
+    if not verify_password(
+        form_data.password,
+        db_user.password
+    ):
         raise HTTPException(
             status_code=401,
             detail="Invalid Password"
