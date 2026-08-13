@@ -10,7 +10,7 @@ Built with: LangChain, Google Gemini API, ChromaDB, Sentence Transformers
 - [ ] Build the RAG pipeline (retrieve relevant chunks → send to LLM → get answer)
 - [ ] Prompt engineering (make sure answers stay grounded in the document, avoid hallucination)
 - [ ] Summarization function (given a document, generate a summary)
-- [ ] Expose these as functions/APIs that Person B's backend can call
+- [ ] Expose these as functions/APIs that the Backend member can call
 
 ## Setup
 
@@ -55,9 +55,12 @@ GEMINI_API_KEY=your-gemini-key-here
 CHROMA_DB_PATH=./chroma_data
 ```
 
-## Talk to Person B about:
+## Talk to Backend member about:
 - How your functions will be called from the backend (direct import vs separate microservice — for mini project, direct import is simpler)
 - What format to return answers in (so frontend can display source citations)
+
+## Talk to Neha (Frontend + DevOps) about:
+- Any changes to function signatures or output format — she runs integration testing and needs to know before the weekly demo
 
 ## Evaluation Task (do this before final submission)
 Manually test 20-30 questions against your uploaded notes and log:
