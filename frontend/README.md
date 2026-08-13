@@ -1,8 +1,8 @@
-# Frontend — SynapseOS (Person A)
+# Frontend + DevOps — SynapseOS (You)
 
 Built with: Next.js, React, Tailwind CSS
 
-## Your Responsibilities
+## Your Responsibilities — Frontend
 - [ ] Login / Signup pages (connect to backend `/auth` APIs)
 - [ ] Dashboard — list of uploaded documents
 - [ ] Document upload UI (drag-and-drop or file picker)
@@ -10,10 +10,18 @@ Built with: Next.js, React, Tailwind CSS
 - [ ] Chat history view
 - [ ] Basic profile page
 
-## Setup
+## Your Responsibilities — DevOps / Integration
+- [ ] Repo setup, folder structure, branching strategy for all 4 members
+- [ ] Keep `main` branch stable — review every PR before merging
+- [ ] Integration testing — confirm frontend ↔ backend ↔ AI engine actually work together end-to-end
+- [ ] Set up hosted PostgreSQL (Render/Supabase/Neon — free tier)
+- [ ] Deployment: frontend on Vercel, backend on Render
+- [ ] Maintain `docs/README.md`, architecture notes, and demo prep
+
+## Setup — Frontend
 
 ```bash
-npx create-next-app@latest . 
+npx create-next-app@latest .
 npm install axios
 npm run dev
 ```
@@ -31,11 +39,16 @@ Store backend URL in `.env.local`:
 ```
 NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
-(Person B will confirm the actual backend URL/port)
+(Backend member will confirm the actual backend URL/port)
 
-## Talk to Person B about:
+## Talk to Backend member about:
 - Exact API request/response formats for login, upload, chat endpoints
 - Auth token handling (where JWT is stored — cookies vs localStorage, discuss security tradeoffs)
 
-## Talk to Person C about:
+## Talk to AI Engine member about:
 - What format the chat response comes in (answer text + source chunks) — so you can display citations properly
+
+## DevOps Checklist (before each weekly demo)
+- [ ] Pull latest from all 3 dev branches, merge into `main`, confirm nothing is broken
+- [ ] Run the full user flow once end-to-end: signup → login → upload → chat → summarize → dashboard
+- [ ] Note any blockers in `docs/PROGRESS.md` before the Sunday call
