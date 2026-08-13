@@ -9,8 +9,8 @@ Built with: FastAPI, PostgreSQL, JWT
 - [ ] Document upload API (receives file, saves it, triggers AI engine processing)
 - [ ] APIs to list user's documents
 - [ ] Chat API endpoint (receives question, calls AI engine, returns answer)
-- [ ] Connect and coordinate both frontend (A) and AI engine (C) — you are the bridge
-- [ ] Deployment (Render/Railway) — since you're team lead, own this end-to-end
+- [ ] Connect and coordinate both frontend and AI engine — you are the bridge between them
+- [ ] Share your API request/response formats with Neha early, since she handles integration and deployment
 
 ## Setup
 
@@ -52,8 +52,5 @@ GEMINI_API_KEY=your-gemini-key-here
 | POST | `/chat/ask` | Send question, calls AI engine, returns answer |
 | GET | `/chat/history/{doc_id}` | Get chat history for a document |
 
-## As Team Lead — extra things on you
-- Keep `docs/PROGRESS.md` updated as a template each week
-- Run the weekly sync call
-- Make sure `main` branch stays working (review PRs before merging)
-- Own the final deployment
+## Note on Deployment & Coordination
+Neha (Frontend + DevOps) owns final deployment and cross-module integration testing. Keep her looped in on any API changes so the frontend and deployment stay in sync.
