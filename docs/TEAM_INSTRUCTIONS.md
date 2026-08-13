@@ -6,9 +6,9 @@ Read this before writing any code. This keeps our GitHub clean and our work prop
 
 ## 1. Your Folder = Your Responsibility
 
-- **Person A** → only works inside `frontend/`
-- **Person B** → only works inside `backend/`
-- **Person C** → only works inside `ai_engine/`
+- **Neha (Frontend + DevOps/Integration)** → works inside `frontend/`, and owns repo setup, deployment, and integration testing across all modules
+- **Person B (Backend)** → only works inside `backend/`
+- **Person C (AI Engine)** → only works inside `ai_engine/`
 - `docs/` → everyone updates this together (progress, diagrams)
 
 Don't edit someone else's folder directly. If you need a change there, message them or raise it in the group.
@@ -23,7 +23,7 @@ We use one branch per person so our individual contributions are clearly visible
 ```bash
 git clone <repo-url>
 cd synapseos
-git checkout -b frontend-dev      # Person A
+git checkout -b frontend-dev      # Neha
 git checkout -b backend-dev       # Person B
 git checkout -b ai-dev            # Person C
 ```
@@ -84,7 +84,16 @@ Update your section in `docs/PROGRESS.md` — this becomes the base for:
 
 ---
 
-## 7. Golden Rule
+## 7. Deployment & Integration (Neha's ownership)
+
+- Neha keeps `main` branch stable and reviews all PRs before merging
+- Neha runs integration testing (frontend ↔ backend ↔ AI engine) before each weekly demo/checkpoint
+- Neha owns the final deployment (Vercel for frontend, Render for backend) once modules are stable
+- Backend/AI engine members should flag Neha early if their API contracts (request/response formats) change
+
+---
+
+## 8. Golden Rule
 
 Working code pushed regularly > perfect code pushed once at the end.
 Push small, push often, keep `main` stable.
