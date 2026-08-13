@@ -3,6 +3,7 @@ from app.database import Base, engine
 from app.models import db_models
 from app.routes import auth
 from app.routes import documents
+from app.routes import chat
 
 app = FastAPI(title="SynapseOS Backend")
 
@@ -21,4 +22,10 @@ app.include_router(
     documents.router,
     prefix="/documents",
     tags=["Documents"]
+)
+
+app.include_router(
+    chat.router,
+    prefix="/chat",
+    tags=["Chat"]
 )
