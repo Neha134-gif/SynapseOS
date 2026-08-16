@@ -1,4 +1,3 @@
-// TODO (Person A): Login page - form + call POST /auth/login
 "use client";
 
 import { useState } from "react";
@@ -17,10 +16,6 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      // TODO: replace this with real API call once backend is ready
-      // const res = await api.post("/auth/login", { email, password });
-      // localStorage.setItem("token", res.data.token);
-
       console.log("Login attempt:", { email, password });
       router.push("/dashboard");
     } catch (err) {
@@ -31,56 +26,47 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <form
-        onSubmit={handleLogin}
-        className="w-full max-w-sm rounded-xl bg-white p-8 shadow-md"
-      >
-        <h1 className="mb-6 text-2xl font-bold text-gray-800">
+    <div className="flex min-h-screen items-center justify-center bg-[--color-paper]">
+      <form onSubmit={handleLogin} className="w-full max-w-sm rounded-2xl bg-white p-8 shadow-md">
+        <h1 className="font-display mb-6 text-2xl font-semibold text-[--color-ink]">
           Log in to SynapseOS Lite
         </h1>
 
         {error && (
-          <p className="mb-4 rounded bg-red-50 p-2 text-sm text-red-600">
-            {error}
-          </p>
+          <p className="mb-4 rounded bg-red-50 p-2 text-sm text-red-600">{error}</p>
         )}
 
-        <label className="mb-1 block text-sm font-medium text-gray-700">
-          Email
-        </label>
+        <label className="mb-1 block text-sm font-medium text-[--color-ink]">Email</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="mb-4 w-full rounded border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+          className="mb-4 w-full rounded border border-[--color-line] px-3 py-2 focus:border-[--color-highlight] focus:outline-none"
           placeholder="you@example.com"
         />
 
-        <label className="mb-1 block text-sm font-medium text-gray-700">
-          Password
-        </label>
+        <label className="mb-1 block text-sm font-medium text-[--color-ink]">Password</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="mb-6 w-full rounded border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+          className="mb-6 w-full rounded border border-[--color-line] px-3 py-2 focus:border-[--color-highlight] focus:outline-none"
           placeholder="••••••••"
         />
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded bg-blue-600 py-2 font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+          className="w-full rounded-full bg-[--color-ink] py-2.5 font-medium text-[--color-paper] hover:opacity-90 disabled:opacity-50"
         >
           {loading ? "Logging in..." : "Log In"}
         </button>
 
-        <p className="mt-4 text-center text-sm text-gray-500">
+        <p className="mt-4 text-center text-sm text-[--color-ink]/60">
           Don't have an account?{" "}
-          <a href="/signup" className="text-blue-600 hover:underline">
+          <a href="/signup" className="text-[--color-highlight] hover:underline">
             Sign up
           </a>
         </p>

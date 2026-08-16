@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+:root {
+  --color-paper: #fbf8f2;
+  --color-ink: #21253b;
+  --color-highlight: #e3b23c;
+  --color-surface: #f1eee3;
+  --color-line: #dcd6c5;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}

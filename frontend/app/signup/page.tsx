@@ -34,55 +34,57 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <form onSubmit={handleSignup} className="w-full max-w-sm rounded-xl bg-white p-8 shadow-md">
-        <h1 className="mb-6 text-2xl font-bold text-gray-800">Create your account</h1>
+    <div className="flex min-h-screen items-center justify-center bg-[--color-paper]">
+      <form onSubmit={handleSignup} className="w-full max-w-sm rounded-2xl bg-white p-8 shadow-md">
+        <h1 className="font-display mb-6 text-2xl font-semibold text-[--color-ink]">
+          Create your account
+        </h1>
 
         {error && (
           <p className="mb-4 rounded bg-red-50 p-2 text-sm text-red-600">{error}</p>
         )}
 
-        <label className="mb-1 block text-sm font-medium text-gray-700">Full Name</label>
+        <label className="mb-1 block text-sm font-medium text-[--color-ink]">Full Name</label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="mb-4 w-full rounded border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+          className="mb-4 w-full rounded border border-[--color-line] px-3 py-2 focus:border-[--color-highlight] focus:outline-none"
           placeholder="Neha Mishra"
         />
 
-        <label className="mb-1 block text-sm font-medium text-gray-700">Email</label>
+        <label className="mb-1 block text-sm font-medium text-[--color-ink]">Email</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="mb-4 w-full rounded border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+          className="mb-4 w-full rounded border border-[--color-line] px-3 py-2 focus:border-[--color-highlight] focus:outline-none"
           placeholder="you@example.com"
         />
 
-        <label className="mb-1 block text-sm font-medium text-gray-700">Password</label>
+        <label className="mb-1 block text-sm font-medium text-[--color-ink]">Password</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="mb-6 w-full rounded border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+          className="mb-6 w-full rounded border border-[--color-line] px-3 py-2 focus:border-[--color-highlight] focus:outline-none"
           placeholder="At least 6 characters"
         />
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded bg-blue-600 py-2 font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+          className="w-full rounded-full bg-[--color-ink] py-2.5 font-medium text-[--color-paper] hover:opacity-90 disabled:opacity-50"
         >
           {loading ? "Creating account..." : "Sign Up"}
         </button>
 
-        <p className="mt-4 text-center text-sm text-gray-500">
+        <p className="mt-4 text-center text-sm text-[--color-ink]/60">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-600 hover:underline">
+          <a href="/login" className="text-[--color-highlight] hover:underline">
             Log in
           </a>
         </p>
