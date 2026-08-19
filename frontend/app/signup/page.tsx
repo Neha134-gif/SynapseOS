@@ -77,16 +77,13 @@ export default function SignupPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-full bg-[--color-ink] py-2.5 font-medium text-[--color-paper] hover:opacity-90 disabled:opacity-50"
+          className="w-full rounded-full bg-[var(--color-ink)] py-2.5 font-medium text-[--color-paper] hover:opacity-90 disabled:opacity-50"
         >
           {loading ? "Creating account..." : "Sign Up"}
         </button>
 
-        <p className="mt-4 text-center text-sm text-[--color-ink]/60">
-          Already have an account?{" "}
-          <a href="/login" className="text-[--color-highlight] hover:underline">
-            Log in
-          </a>
+        <p className="mt-4 text-center text-sm text-[var(--color-ink)]/60">
+         Already have an account? <a href="/login" className="font-medium text-[var(--color-highlight)] underline">Log in</a>
         </p>
       </form>
     </div>
