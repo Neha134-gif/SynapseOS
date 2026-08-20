@@ -14,9 +14,10 @@ const inter = Inter({
   variable: "--font-body",
 });
 
-export const metadata: Metadata = {
-  title: "SynapseOS Lite",
-  description: "Document intelligence assistant",
+export const metadata = {
+  title: "SynapseOS Lite | Document Intelligence",
+  description:
+    "Document intelligence made simple — search, summarize, and verify your files.",
 };
 
 export default function RootLayout({
