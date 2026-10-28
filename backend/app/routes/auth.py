@@ -1,5 +1,10 @@
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import OAuth2PasswordRequestForm
+from app.auth.jwt_handler import verify_token
+from fastapi import Header
+from fastapi import APIRouter, HTTPException, Depends
+from fastapi.security import OAuth2PasswordRequestForm, HTTPBearer, HTTPAuthorizationCredentials
+from app.auth.jwt_handler import create_token, verify_token
 
 from app.schemas import UserCreate, UserLogin
 from app.database import SessionLocal
@@ -9,6 +14,49 @@ from app.utils.security import hash_password, verify_password
 
 
 router = APIRouter()
+security = HTTPBearer()
+
+
+@router.get("/me")
+def get_current_user(
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+):
+    token = credentials.credentials
+
+    try:
+        payload = verify_token(token)
+    except Exception:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid or expired token"
+        )
+
+    user_id = payload.get("user_id")
+
+    if not user_id:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid token payload"
+        )
+
+    db = SessionLocal()
+
+    try:
+        user = db.query(User).filter(User.id == user_id).first()
+
+        if not user:
+            raise HTTPException(
+                status_code=404,
+                detail="User not found"
+            )
+
+        return {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email
+        }
+    finally:
+        db.close()
 
 
 @router.post("/signup")

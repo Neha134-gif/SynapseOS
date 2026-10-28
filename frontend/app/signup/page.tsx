@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import SynapseIcon from "@/components/SynapseIcon";
+import api from "@/lib/api";
 export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -14,29 +15,37 @@ export default function SignupPage() {
 
   const router = useRouter();
 
-  const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
+ const handleSignup = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setError("");
 
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters.");
-      return;
-    }
+  if (password.length < 6) {
+    setError("Password must be at least 6 characters.");
+    return;
+  }
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
-      console.log("Signup attempt:", { name, email, password });
+  try {
+    await api.post("/auth/signup", {
+      username: name.trim(),
+      email: email.trim(),
+      password: password,
+    });
 
-      await new Promise((resolve) => setTimeout(resolve, 800));
+    router.push("/login");
+  } catch (err: any) {
+    console.error("Signup error:", err.response?.data || err);
 
-      router.push("/login");
-    } catch (err) {
-      setError("Signup failed. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    setError(
+      err.response?.data?.detail ||
+        err.response?.data?.message ||
+        "Signup failed. Please try again."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-ink)]">

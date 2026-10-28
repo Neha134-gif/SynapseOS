@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import SynapseIcon from "@/components/SynapseIcon";
+import api from "@/lib/api";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -15,18 +16,33 @@ export default function LoginPage() {
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+  e.preventDefault();
+  setError("");
+  setLoading(true);
 
-    try {
-      console.log("Login attempt:", { email, password });
+  try {
+    const response = await api.post("/auth/login", {
+      email: email,
+      password: password,
+    });
 
-      router.push("/dashboard");
-    } finally {
-      setLoading(false);
+    const { access_token } = response.data;
+
+    localStorage.setItem("token", access_token);
+
+    router.push("/dashboard");
+  } catch (error: any) {
+    console.error("Login error:", error);
+
+    if (error.response?.data?.detail) {
+      setError(error.response.data.detail);
+    } else {
+      setError("Login failed. Please try again.");
     }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-ink)]">

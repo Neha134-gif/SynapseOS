@@ -10,9 +10,9 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, nullable=False)
-    email = Column(String, unique=True, nullable=False)
-    password = Column(String, nullable=False)
+    username = Column(String(100), nullable=False)
+    email = Column(String(255), unique=True, nullable=False)
+    password = Column(String(255), nullable=False)
 
     documents = relationship("Document", back_populates="owner")
     chat_history = relationship("ChatHistory", back_populates="user")
@@ -22,8 +22,8 @@ class Document(Base):
     __tablename__ = "documents"
 
     id = Column(Integer, primary_key=True, index=True)
-    filename = Column(String, nullable=False)
-    filepath = Column(String, nullable=False)
+    filename = Column(String(255), nullable=False)
+    filepath = Column(String(500), nullable=False)
 
     owner_id = Column(Integer, ForeignKey("users.id"))
 
@@ -36,9 +36,10 @@ class ChatHistory(Base):
     id = Column(Integer, primary_key=True, index=True)
 
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    document_id = Column(Integer, ForeignKey("documents.id"), nullable=False)
 
-    message = Column(String, nullable=False)
-    response = Column(String, nullable=False)
+    message = Column(String(5000), nullable=False)
+    response = Column(String(5000), nullable=False)
 
     created_at = Column(DateTime, default=datetime.utcnow)
 
